@@ -1929,6 +1929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 44186238}
+  richText: <color="yellow">
 --- !u!1 &1134004444
 GameObject:
   m_ObjectHideFlags: 0

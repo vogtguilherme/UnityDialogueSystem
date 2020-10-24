@@ -4,79 +4,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WordSelection : MonoBehaviour
+namespace Dialogue.Vocabulary
 {
-    [Header("UI")]
-    public Text selectedText = null;
-    [Space(2)]
-    [Header("Word Data")]
-    [SerializeField]
-    private WordData wordData;
-    private Word[] words;
-
-    private AnswerManager m_AnswerManager = null;
-
-    [SerializeField]
-    private int wordIndex = 0;
-    [SerializeField]
-    private int wordCount;
-
-    private void Awake()
+    public class WordSelection : MonoBehaviour
     {
-        m_AnswerManager = GetComponent<AnswerManager>();
+        [Header("UI")]
+        public Text selectedText = null;
+        [Space(2)]
+        [Header("Word Data")]
+        [SerializeField]
+        private WordData wordData = null;
+        private Word[] words;
 
-        VocabularySetup();
-    }
+        private AnswerManager m_AnswerManager = null;
 
-    private void Start()
-    {
-        DisplayWord(words[wordIndex]);
-    }
+        [SerializeField]
+        private int wordIndex = 0;
+        [SerializeField]
+        private int wordCount;
 
-    public void DisplayWord(Word displayWord)
-    {
-        Debug.Log("Word Index: " + wordIndex);
-        
-        selectedText.text = displayWord.word;
-
-        m_AnswerManager.DefineWord(displayWord.word);
-    }
-
-    public void Bttn_NextWord()
-    {
-        wordIndex++;
-
-        if(wordIndex >= wordCount)
+        private void Awake()
         {
-            wordIndex = 0;
+            m_AnswerManager = GetComponent<AnswerManager>();
+
+            VocabularySetup();
         }
 
-        DisplayWord(words[wordIndex]);
-    }
-
-    public void Bttn_PreviousWord()
-    {
-        wordIndex--;
-
-        if (wordIndex <= 0)
+        private void Start()
         {
-            wordIndex = wordCount;
+            DisplayWord(words[wordIndex]);
         }
 
-        DisplayWord(words[wordIndex]);
-    }
-
-    private void VocabularySetup()
-    {
-        words = new Word[wordData.words.Length];
-
-        for (int i = 0; i < words.Length; i++)
+        public void DisplayWord(Word displayWord)
         {
-            words[i] = new Word(wordData.words[i].word, wordData.words[i].wordClass);
-            Debug.Log(words[i].Show());
+            Debug.Log("Word Index: " + wordIndex);
+
+            selectedText.text = displayWord.word;
+
+            m_AnswerManager.DefineWord(displayWord.word);
         }
 
-        wordCount = words.Length;
-        Debug.Log("Word count: " + wordCount);
+        public void Bttn_NextWord()
+        {
+            wordIndex++;
+
+            if (wordIndex >= wordCount)
+            {
+                wordIndex = 0;
+            }
+
+            DisplayWord(words[wordIndex]);
+        }
+
+        public void Bttn_PreviousWord()
+        {
+            wordIndex--;
+
+            if (wordIndex <= 0)
+            {
+                wordIndex = wordCount;
+            }
+
+            DisplayWord(words[wordIndex]);
+        }
+
+        private void VocabularySetup()
+        {
+            words = new Word[wordData.words.Length];
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                words[i] = new Word(wordData.words[i].word, wordData.words[i].wordClass);
+                Debug.Log(words[i].Show());
+            }
+
+            wordCount = words.Length;
+            Debug.Log("Word count: " + wordCount);
+        }
     }
 }
