@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class AnswerManager : MonoBehaviour
+namespace Dialogue.Vocabulary
 {
-    [SerializeField]
-    TMP_Text text = null;
-
-    public void DefineWord(string word)
+    public class AnswerManager : MonoBehaviour
     {
-        string answer = null;
+        [SerializeField]
+        TMP_Text text = null;
+        [SerializeField]
+        private string richText = null;
 
-        answer = "Comendo " + word + " de curioso.";
+        public void DefineWord(string word)
+        {
+            string answer = null;
 
-        text.text = answer;
+            answer = "Comendo " + richText + word + "<color=white> de curioso.";
+
+            text.text = answer;
+        }
     }
 }
